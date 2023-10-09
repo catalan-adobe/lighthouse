@@ -1,6 +1,6 @@
 <html>
   <body>
-    <h1>LH Viewer Check Page</h1>
+    <h2>Access Lighthouse Report</h1>
     <script>
       var lh = window.lh || {};
       lh.check = true;
@@ -20,14 +20,22 @@
           const u = new URL(jsonurl);
           console.log(u);
   
-          // window.open(u.origin, '_blank');
+
+          // const w = window.open(u.origin, '_blank');
   
+
+          const h3 = document.createElement('h3');
+          h3.innerHTML = `You first need to login to <a href="${u.origin}" target="_blank">${u.origin}</a> and then reload this page.`;
+          document.body.appendChild(h3);
+
           // // append an iframe to the body with the origin of the jsonurl
           // const iframe = document.createElement('iframe');
           // iframe.src = u.origin;
           // iframe.style.width = '100%';
           // iframe.style.height = '100%';
           // document.body.appendChild(iframe);
+        } else {
+          window.location.href = `/lighthouse/viewer/?jsonurl=${jsonurl}`;
         }
       }).catch((err) => {
         console.log('check err', err);

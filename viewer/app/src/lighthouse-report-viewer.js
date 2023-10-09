@@ -150,7 +150,7 @@ export class LighthouseReportViewer {
             ? Promise.reject(new Error('Can only use jsonurl when not logged in'))
             : null;
         })
-        .then(() => fetch(jsonurl))
+        .then(() => fetch(jsonurl, { credentials: 'include' }))
         .then(resp => resp.json())
         .then(json => {
           this._reportIsFromJSON = true;
