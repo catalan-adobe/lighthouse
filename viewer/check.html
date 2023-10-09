@@ -1,45 +1,26 @@
 <html>
-  <body>
+  <body style="font-family: Arial, Helvetica, sans-serif;">
     <h2>Access Lighthouse Report</h1>
     <script>
-      var lh = window.lh || {};
-      lh.check = true;
-
       const u = new URL(location.href);
       const jsonurl = u.searchParams.get('jsonurl');
-
-      fetch(jsonurl, {
-        redirect: 'manual',
-        method: 'GET',
-        credentials: 'include',
-      }).then((resp) => {
-        console.log(resp.ok, resp.status);
-        console.log(resp.body);
-        console.log('check resp', resp);
-        if (!resp.ok) {
-          const u = new URL(jsonurl);
-          console.log(u);
-  
-
-          // const w = window.open(u.origin, '_blank');
-  
-
-          const h3 = document.createElement('h3');
-          h3.innerHTML = `You first need to login to <a href="${u.origin}" target="_blank">${u.origin}</a> and then reload this page.`;
-          document.body.appendChild(h3);
-
-          // // append an iframe to the body with the origin of the jsonurl
-          // const iframe = document.createElement('iframe');
-          // iframe.src = u.origin;
-          // iframe.style.width = '100%';
-          // iframe.style.height = '100%';
-          // document.body.appendChild(iframe);
-        } else {
-          window.location.href = `/lighthouse/viewer/?jsonurl=${jsonurl}`;
-        }
-      }).catch((err) => {
-        console.log('check err', err);
-      });
+      if (jsonurl) {
+        fetch(jsonurl, {
+          redirect: 'manual',
+          credentials: 'include',
+        }).then((resp) => {
+          if (!resp.ok) {
+            const u = new URL(jsonurl);
+            const h3 = document.createElement('h3');
+            h3.innerHTML = `You first need to login to <a href="${u.origin}" target="_blank">${u.origin}</a> and then reload this page.`;
+            document.body.appendChild(h3);
+          } else {
+            window.location.href = `/lighthouse/viewer/?jsonurl=${jsonurl}`;
+          }
+        }).catch((err) => {
+          console.log('check err', err);
+        });
+      }
     </script>
   </body>
 </html>
