@@ -1,0 +1,12 @@
+{
+  "name": "lighthouse-plugin-example",
+  "private": true,
+  "type": "module",
+  "main": "./plugin.js",
+  "peerDependencies": {
+    "lighthouse": "^11.1.0"
+  },
+  "devDependencies": {
+    "lighthouse": "^8.6.0"
+  }
+}
